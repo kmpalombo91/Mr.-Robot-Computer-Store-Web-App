@@ -1,0 +1,19 @@
+#bottom {  /* Styles the bottom of the page with margin, padding, centering the text, and font-color white */
+    margin: 5px 0px 0px 0px;
+    padding: 1px;
+    text-align:center;
+    color: #ffffff;
+
+    background-image: -webkit-gradient( /* Styles the bottom background image with a linear gradient color scheme */
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #A3979A),
+        color-stop(1, #120205)
+        );
+    background-image: -o-linear-gradient(bottom, #A3979A 0%, #120205 100%);
+    background-image: -moz-linear-gradient(bottom, #A3979A 0%, #120205 100%);
+    background-image: -webkit-linear-gradient(bottom, #A3979A 0%, #120205 100%);
+    background-image: -ms-linear-gradient(bottom, #A3979A 0%, #120205 100%);
+    background-image: linear-gradient(to bottom, #A3979A 0%, #120205 100%);
+}

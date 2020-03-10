@@ -1,0 +1,6 @@
+#logo {
+    background: transparent url("#{resource['images/logo3.png']}");
+    margin-right: 1px;
+    width:80px;
+    height:113px;
+}

@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f5="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title></title>
+    </h:head>
+    <body>
+        <ui:composition template="template/layout.xhtml">     
+            <ui:param name="wrapperWidth" value="1055px"/>
+            <ui:param name="search" value="true"/>
+            <ui:param name="leftWidth" value="200px"/>
+            <ui:param name="right" value="false"/>
+
+            <ui:define name="title">
+                MR. ROBOT | Selling Computer and Phones with a smile! :)
+            </ui:define>
+
+            <ui:define name="login">
+                <h:form id="loginFormID">
+                    <h:inputText styleClass="inputs" value="#{userBean.user}" f5:type="email" f5:placeholder="E-mail"/>
+                    <h:inputSecret styleClass="inputs" value="#{userBean.pass}" f5:placeholder="Password:"/>
+                    <h:commandButton styleClass="lbutton" value="Log In" action="#{userBean.findALL()}"/>
+                </h:form>
+            </ui:define>
+            <ui:define name="search">
+                <h:form>
+                    <h:inputText styleClass="inputs" value="#{functionBean.search}" f5:type="search" f5:placeholder="Search"/>
+                    <h:commandButton styleClass="lbutton" value="Go" action="#{functionBean.searchInventory()}"/>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="logo"/>
+            <ui:define name="top">
+                .:HELLO, FRIEND. THANKS FOR STOPPING BY:.
+            </ui:define>
+
+            <ui:define name="menu">
+                <ui:include src="nav.xhtml"/>
+            </ui:define>
+
+            <ui:define name="left">
+                <br/>
+                <br/>
+                <h:outputText value="ITEMS" style="color:#FFFFFF; font-size:18px; padding:60px;"/>
+                <br/>
+                <br/>
+                <br/>
+                <div style="width:200px;padding-bottom: 5px;">
+                    <h:form>
+                        <p:growl id="messages" showDetail="true"/>
+                        <h:panelGrid columns="1" style="margin: 0 auto;">
+                        <p:commandButton
+                     id="computer-btn" type="button" value="Computers"/>
+                        <br/>
+                        <p:commandButton
+                     id="phone-btn" type="button" value="Phones"/>
+                        </h:panelGrid>
+                        <p:tieredMenu 
+                  overlay="true" 
+                  trigger="computer-btn" 
+                  my="left top" 
+                  at="left bottom" style="width:200px; border: white; padding: 0px" model="#{productsBean.model}">
+                        </p:tieredMenu>
+                        <p:tieredMenu 
+                  overlay="true" 
+                  trigger="phone-btn" 
+                  my="left top" 
+                  at="left bottom" style="width:200px; border: white; padding: 0px" model="#{productsBean.model2}">
+                        </p:tieredMenu>
+                    </h:form>
+                </div>
+                <br/><br/>
+            </ui:define>
+
+            <ui:define name="content">
+                <h2>Search Results</h2>
+                <hr/>
+                <h:form>
+                    <!-- Creates a dataTable with product key values, outputs the item that is found in the searchResults
+                    Map with that key value. Item page button changes the Product to the one with the found key -->
+                    <h:dataTable value="#{functionBean.keys}" var="key">
+                        <h:column>
+                            <h:outputText value="#{functionBean.searchResults.get(key)}" style="font-size:1.5em;"/>
+                        </h:column>
+                        <h:column>
+                            <h:commandButton value="Item Page" action="#{productsBean.changeProduct(key)}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+                <hr/>
+            </ui:define>
+
+            <ui:define name='bottom'>
+                SLCC ASDV 2020. All Rights Reserved.
+            </ui:define>
+        </ui:composition>
+        <br />
+    </body>
+</html>
+
