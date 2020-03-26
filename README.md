@@ -1,1 +1,2 @@
-# Mr.-Robot-Computer-Store-Web-App-JavaServer-Faces-
+# Mr.-Robot-Computer-Store-Web-App-
+A JavaServer Faces Web Application.
