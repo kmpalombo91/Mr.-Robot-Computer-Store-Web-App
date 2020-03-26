@@ -3,6 +3,7 @@ package edu.slcc.asdv.pojos;
 public class User {
     private String username;
     private String password;
+    private String status;
     
     public User() {}
     /**
@@ -10,9 +11,10 @@ public class User {
      * @param username
      * @param password 
      */
-    public User(String username, String password) {
+    public User(String username, String password, String status) {
         this.username = username;
         this.password = password;
+        this.status = status;
     }
 
     public String getUsername() {
@@ -29,5 +31,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

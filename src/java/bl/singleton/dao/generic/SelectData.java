@@ -14,12 +14,17 @@ public class SelectData {
         ArrayList<Product> list = new ArrayList();
         Product product = new Product();
         String[] images = {"resources/images/iPhone11.png", "resources/images/galaxys10.jpg", "resources/images/sony.jpg", "resources/images/pixel4xl.jpg",
-            "resources/images/omen.jpg", "resources/images/acer.jpg", "resources/images/dell.jpg", "resources/images/msi.jpg"};
+            "resources/images/omen.jpg", "resources/images/acer.jpg", "resources/images/dell.jpg", "resources/images/msi.jpg", "resources/images/galaxys20.jpg"};
         Statement stmt = database.connection().createStatement();
+        ResultSet res1 = stmt.executeQuery("SELECT COUNT(*) AS rowcount FROM products");
+        int size = 0;
+        while (res1.next()) {
+            size = res1.getInt("rowcount");
+        }
         ResultSet result = stmt.executeQuery("SELECT * FROM products");
         int count = 0;
         while (result.next()) {
-            for (int i = 1; i <= 8;) {
+            for (int i = 1; i <= size;) {
                 product = new Product();
                 product.setId(result.getString(i));
                 product.setType(result.getString(i + 1));
@@ -32,7 +37,7 @@ public class SelectData {
                 product.setFakeImage(images[count]);
                 count++;
                 list.add(product);
-                i += 8;
+                i += size;
             }
         }
         return list;

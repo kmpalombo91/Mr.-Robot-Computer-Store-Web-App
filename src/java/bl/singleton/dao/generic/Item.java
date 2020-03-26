@@ -33,6 +33,18 @@ public class Item
         this.fakeImage = fakeImage;
     }
     
+    public Item(String id, Item i) {
+        this.id = id;
+        this.category = i.category;
+        this.description = i.description;
+        this.desc = i.desc;
+        this.width = i.width;
+        this.height = i.height;
+        this.qty = i.qty;
+        this.price = i.price;
+        this.fakeImage = i.fakeImage;
+    }
+    
     public Item(String category, String id, String description) {
         this.id = id;
         this.description = description;

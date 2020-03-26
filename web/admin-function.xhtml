@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f5="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title></title>
+    </h:head>
+    <body>
+        <ui:composition template="template/admin.xhtml">     
+            <ui:param name="wrapperWidth" value="1055px"/>
+            <ui:param name="leftWidth" value="200px"/>
+            <ui:param name="right" value="false"/>
+
+            <ui:define name="title">
+                MR. ROBOT | Selling Computer and Phones with a smile! :)
+            </ui:define>
+
+            <ui:define name="logout">
+                <h:form>
+                    <h:commandButton styleClass="lbutton" value="Log Out" action="index"/>
+                </h:form>
+            </ui:define>
+            <ui:define name="logo"/>
+            <ui:define name="top">
+                .:HELLO, FRIEND. THANKS FOR STOPPING BY:.
+            </ui:define>
+
+            <ui:define name="menu">
+                <ui:include src="nav.xhtml"/>
+            </ui:define>
+
+            <ui:define name="left">
+                <br/>
+                <br/>
+                <h:outputText value="FUNCTIONS" style="color:#FFFFFF; font-size:18px; padding:40px;"/>
+                <br/>
+                <br/>
+                <br/>
+                <!-- Uses command buttons to trigger a tiered menu on click, using the model and menu
+                     items created in the Product Bean -->
+                <div style="width:200px;padding-bottom: 5px; padding-left: 10px;">
+                    <h:form>
+                        <p:growl id="messages" showDetail="false"/>
+                        <p:menu>
+                            <p:submenu label="Admin Functions">
+                                <p:menuitem value="Insert Product" action="#{adminBean.clickAction('Insert')}" update="messages" icon="pi pi-save" />
+                                <p:menuitem value="Update Product" action="#{adminBean.clickAction('Update')}" update="messages" icon="pi pi-refresh"/>
+                                <p:menuitem value="Delete Product" action="#{adminBean.clickAction('Delete')}" update="messages" icon="pi pi-save" />
+                                <p:menuitem value="List All Products" action="#{adminBean.clickAction('List')}" update="messages" icon="pi pi-refresh"/>
+                                <p:menuitem value="Download PDF" action="#{menuView.save}" update="messages" icon="pi pi-save" />
+                                <p:menuitem value="Upload PNG" action="#{menuView.update}" update="messages" icon="pi pi-refresh"/>
+                            </p:submenu>
+                        </p:menu>
+                    </h:form>
+                </div>
+                <br/><br/>
+            </ui:define>
+            <ui:define name="content">
+                <ui:include src="#{adminBean.temp}">
+                    <ui:param name="action" value="#{adminBean.action}"/>
+                    <ui:param name="id" value="#{adminBean.product.id}"/>
+                    <ui:param name="type" value="#{adminBean.product.category}"/>
+                    <ui:param name="name" value="#{adminBean.product.description}"/>
+                    <ui:param name="width" value="#{adminBean.product.width}"/>
+                    <ui:param name="height" value="#{adminBean.product.height}"/>
+                    <ui:param name="qty" value="#{adminBean.product.qty}"/>
+                    <ui:param name="desc" value="#{adminBean.product.desc}"/>
+                    <ui:param name="price" value="#{adminBean.product.price}"/>
+                    <ui:param name="image" value="#{adminBean.product.fakeImage}"/>
+                </ui:include>
+            </ui:define>
+            <ui:define name='bottom'>
+                SLCC ASDV 2020. All Rights Reserved.
+            </ui:define>
+        </ui:composition>
+        <br />
+    </body>
+</html>
+

@@ -19,6 +19,7 @@ public class UserBean implements Serializable {
     private String user;
     private static int id = 0;
     private String pass;
+    private String status;
     private UserKey u;
     private byte[] ar;
     private boolean isLoggedIn = false;
@@ -45,6 +46,14 @@ public class UserBean implements Serializable {
         this.pass = pass;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public boolean isIsLoggedIn() {
         return isLoggedIn;
     }
@@ -65,22 +74,26 @@ public class UserBean implements Serializable {
      * @throws SQLException 
      */
     public String findALL() throws SQLException {
-        users = new User(user, pass);
-        String userN = "", passW = "", what = "";
+        users = new User(user, pass, status);
+        String userN = "", passW = "", stat="", what = "";
         Statement stmt = database.connection().createStatement();
-        ResultSet result = stmt.executeQuery("SELECT username, password FROM accounts");
+        ResultSet result = stmt.executeQuery("SELECT username, password, status FROM accounts");
         while (result.next()) {
             userN += result.getString("username") + " ";
             passW += result.getString("password") + " ";
+            stat += result.getString("status") + " ";
         }
         String[] userss = userN.split(" ");
         String[] passes = passW.split(" ");
+        String[] stats = stat.split(" ");
         id = userss.length;
         String passE = DESUtil.encrypt(this.users.getPassword(), ar);
         for (int i = 0; i < userss.length; i++) {
             if (userss[i].equals(this.users.getUsername()) && passes[i].trim().equals(passE)) {
+                status = stats[i];
+                this.users.setStatus(status);
                 isLoggedIn = true;
-                what = "login";
+                what = AdminBean.checkAdmin(this.users.getStatus());
             }
         }
         if (!isLoggedIn) {
@@ -96,11 +109,11 @@ public class UserBean implements Serializable {
      * @throws SQLException 
      */
     public String register() throws SQLException {
-        users = new User(user, pass);
+        users = new User(user, pass, status);
         id++;
         encryptPass = DESUtil.encrypt(u.getPassword(), ar);
         Statement stmt = database.connection().createStatement();
-        stmt.executeUpdate("INSERT INTO accounts VALUES (" + id + ", '" + users.getUsername() + "', '" + encryptPass + "')");
-        return "login";
+        stmt.executeUpdate("INSERT INTO accounts(user_id, username, password) VALUES (" + id + ", '" + users.getUsername() + "', '" + encryptPass + "')");
+        return AdminBean.checkAdmin(status);
     }
 }

@@ -16,37 +16,45 @@ public class ProductsForSale<K, V extends Keyable>
 
     @Override
     public void create(Keyable t) throws SQLException {
-        map.put((K) t.getKey(), (V) t);
+        if (!map.containsKey((K)t.getKey())) {
+          map.put((K) t.getKey(), (V) t);  
+        }
         String id = "";
-        Item i = (Item) new Item(t.getKey().toString());
+        Item i = (Item) new Item(t.getKey().toString(), (Item)t);
         Statement stmt = db.connection().createStatement();
         ResultSet result = stmt.executeQuery("SELECT id FROM products;");
         while (result.next()) {
             id += result.getString("id") + " ";
         }
-        if (!id.contains(i.getId())) {
+        String[] ar = id.split(" ");
+        boolean is = false;
+        for (String n : ar) {
+            if (n.equals(i.getId())) {
+                is = true;
+            }
+        }
+        if (!is) {
             stmt.executeUpdate("INSERT INTO products VALUES ('" + i.getId() + "', '" + i.getCategory() + "', '"
                     + i.getDescription() + "', " + i.getWidth() + ", " + i.getHeight()
-                    + ", " + i.getQty() + ", '" + i.getDescription() + "', " + i.getPrice() + ");");
+                    + ", " + i.getQty() + ", '" + i.getDesc() + "', " + (double)i.getPrice() + ", '"+ i.getFakeImage() +"');");
         }
     }
 
     @Override
     public void delete(Keyable t) throws SQLException {
-        map.remove((K) t.getKey());
         Statement stmt = db.connection().createStatement();
-        Item i = (Item) new Item(t.getKey().toString());
-        stmt.executeUpdate("DELETE FROM producs WHERE id = '" + i.getId() + "'");
+        stmt.executeUpdate("DELETE FROM products WHERE id = '" + t.getKey().toString() + "'");
+        map.remove((K) t.getKey());
     }
 
     @Override
     public void update(Keyable t) throws SQLException {
-        map.replace((K) t.getKey(), (V) map.get((K) t.getKey()));
         Statement stmt = db.connection().createStatement();
-        Item i = (Item) new Item(t.getKey().toString());
+        Item i = (Item) new Item(t.getKey().toString(), (Item) t);
         stmt.executeUpdate("UPDATE products SET id = '" + i.getId() + "', type= '" + i.getCategory() + "', name= '"
                 + i.getDescription() + "', width= " + i.getWidth() + ", height= " + i.getHeight()
                 + ", qty= " + i.getQty() + ", description= '" + i.getDesc() + "', price= " + i.getPrice() + " WHERE id= '" + i.getId() + "';");
+        map.replace((K) t.getKey(), (V) i);
     }
 
     @Override
