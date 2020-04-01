@@ -50,8 +50,8 @@
                                 <p:menuitem value="Update Product" action="#{adminBean.clickAction('Update')}" update="messages" icon="pi pi-refresh"/>
                                 <p:menuitem value="Delete Product" action="#{adminBean.clickAction('Delete')}" update="messages" icon="pi pi-save" />
                                 <p:menuitem value="List All Products" action="#{adminBean.clickAction('List')}" update="messages" icon="pi pi-refresh"/>
-                                <p:menuitem value="Download PDF" action="#{menuView.save}" update="messages" icon="pi pi-save" />
-                                <p:menuitem value="Upload PNG" action="#{menuView.update}" update="messages" icon="pi pi-refresh"/>
+                                <p:menuitem value="Download PDF" action="#{adminBean.clickAction('Download')}" update="messages" icon="pi pi-save" />
+                                <p:menuitem value="Upload PNG" action="#{adminBean.clickAction('Upload')}" update="messages" icon="pi pi-refresh"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>

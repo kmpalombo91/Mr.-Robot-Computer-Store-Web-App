@@ -1,6 +1,7 @@
 package bl.singleton.dao.generic;
 
 import static bl.singleton.dao.generic.SelectData.selectAllProducts;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Collection;
 

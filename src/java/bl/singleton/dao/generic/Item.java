@@ -1,5 +1,6 @@
 package bl.singleton.dao.generic;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class Item
