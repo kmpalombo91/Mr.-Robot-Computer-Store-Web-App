@@ -33,6 +33,7 @@
                 <!-- Title and price of the product -->
                 <h3>#{title}</h3>
                 <h3>$#{price}</h3>
+                <p><strong>Product qty: </strong>#{qty}</p>
                 <h:panelGrid columns="2">
                         <div class="magnify">
                             <!-- This is the magnifying glass which will contain the original/large version -->
@@ -47,7 +48,7 @@
                 </h:panelGrid>
                 <h:panelGrid columns="1">
                     <!-- The buy button that redirects to a page to purchase products -->
-                <h:commandButton style="width:190px;" value="Buy" action="buy.xhtml"/>
+                    <h:commandButton style="width:190px;" value="Add To Cart" action="#{functionBean.addToCart()}"/>
                 </h:panelGrid>
                 <h:panelGrid columns ="1" style="float:left;padding-left:10px;margin-left:10px;">
                     <!-- Previous button that calls the getPrevious() method of ProductBean -->

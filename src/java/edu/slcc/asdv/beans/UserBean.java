@@ -1,5 +1,5 @@
 package edu.slcc.asdv.beans;
-
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import edu.slcc.asdv.pojos.User;
 import edu.slcc.asdv.utils.Database;
 import edu.slcc.asdv.utils.DESUtil;
@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+// </editor-fold>
 
 @Named(value = "userBean")
 @SessionScoped

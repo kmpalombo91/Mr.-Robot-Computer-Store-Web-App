@@ -20,12 +20,13 @@
             </ui:define>
 
             <ui:define name="login">
-            You have successfully logged into your account!
-         </ui:define>
+                You have successfully logged into your account!
+            </ui:define>
             <ui:define name="search">
                 <h:form>
                     <h:inputText styleClass="inputs" value="#{functionBean.search}" f5:type="search" f5:placeholder="Search"/>
                     <h:commandButton styleClass="lbutton" value="Go" action="#{functionBean.searchInventory()}"/>
+                    <h:commandButton styleClass="lbutton" value="Show Cart" action="#{functionBean.showCart()}"/>
                 </h:form>
             </ui:define>
 
@@ -49,23 +50,23 @@
                     <h:form>
                         <p:growl id="messages" showDetail="true"/>
                         <h:panelGrid columns="1" style="margin: 0 auto;">
-                        <p:commandButton
-                     id="computer-btn" type="button" value="Computers"/>
-                        <br/>
-                        <p:commandButton
-                     id="phone-btn" type="button" value="Phones"/>
+                            <p:commandButton
+                                id="computer-btn" type="button" value="Computers"/>
+                            <br/>
+                            <p:commandButton
+                                id="phone-btn" type="button" value="Phones"/>
                         </h:panelGrid>
                         <p:tieredMenu 
-                  overlay="true" 
-                  trigger="computer-btn" 
-                  my="left top" 
-                  at="left bottom" style="width:200px; border: white; padding: 0px" model="#{productsBean.model}">
+                            overlay="true" 
+                            trigger="computer-btn" 
+                            my="left top" 
+                            at="left bottom" style="width:200px; border: white; padding: 0px" model="#{productsBean.model}">
                         </p:tieredMenu>
                         <p:tieredMenu 
-                  overlay="true" 
-                  trigger="phone-btn" 
-                  my="left top" 
-                  at="left bottom" style="width:200px; border: white; padding: 0px" model="#{productsBean.model2}">
+                            overlay="true" 
+                            trigger="phone-btn" 
+                            my="left top" 
+                            at="left bottom" style="width:200px; border: white; padding: 0px" model="#{productsBean.model2}">
                         </p:tieredMenu>
                     </h:form>
                 </div>

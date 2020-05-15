@@ -67,8 +67,9 @@ public class ProductsForSale<K, V extends Keyable>
         return (Collection<Keyable>) map.values();
     }
 
-    public void updateQty(String buy) throws SQLException {
+    public void updateQty(String id, int count) throws SQLException {
         Statement stmt = db.connection().createStatement();
-        stmt.executeUpdate("UPDATE products SET qty = qty - 1 WHERE name='" + buy + "'");
+        stmt.executeUpdate("UPDATE products SET qty = qty - " + count + " WHERE id='" + id + "'");
+        System.out.println("UPDATE products SET qty = qty - " + count + " WHERE id='" + id + "'");
     }
 }

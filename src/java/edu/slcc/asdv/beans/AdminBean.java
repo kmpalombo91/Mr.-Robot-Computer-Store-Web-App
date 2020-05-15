@@ -1,5 +1,5 @@
 package edu.slcc.asdv.beans;
-
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import bl.singleton.dao.generic.Item;
 import bl.singleton.dao.generic.Keyable;
 import bl.singleton.dao.generic.ProductsForSale;
@@ -13,8 +13,11 @@ import java.io.InputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
+// </editor-fold>
 
 @Named(value = "adminBean")
 @SessionScoped
@@ -214,10 +218,10 @@ public class AdminBean implements Serializable {
         ResultSet rs = stmt.executeQuery("SELECT file FROM files WHERE name='" + file + "'");
         while (rs.next()) {
             InputStream stream = rs.getBinaryStream("file");
-            Files.copy(stream, Paths.get("C:\\Users\\Kamryn\\Desktop\\School\\Spring 2020\\Web App Development III\\mp1\\mp1\\web\\resources\\files\\" + file));
+            Files.copy(stream, Paths.get("C:\\Users\\Kamryn\\Desktop\\School\\Spring 2020\\Web App Development III\\mp1\\mp1\\web\\resources\\files\\" + file), StandardCopyOption.REPLACE_EXISTING);
             int len = stream.available();
             byte[] bt = new byte[len];
-            FileOutputStream fout = new FileOutputStream(file);
+            FileOutputStream fout = new FileOutputStream(new File(file));
             while (stream.read(bt) > 0) {
                 fout.write(bt);
             }

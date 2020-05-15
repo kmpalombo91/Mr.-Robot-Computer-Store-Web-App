@@ -1,6 +1,7 @@
 package edu.slcc.asdv.beans;
 // <editor-fold defaultstate="collapsed" desc="Imports">
 
+import bl.factory.generic.dao.ShoppingCart;
 import bl.singleton.dao.generic.Item;
 import bl.singleton.dao.generic.Keyable;
 import bl.singleton.dao.generic.ProductsForSale;
@@ -28,6 +29,7 @@ public class ProductsBean implements Serializable {
     private List<String> values = new ArrayList<>();
     private MenuModel model = new DefaultMenuModel();
     private MenuModel model2 = new DefaultMenuModel();
+    private ProductsBean bean;
 // </editor-fold>
 
     public ProductsBean() throws SQLException {

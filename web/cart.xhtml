@@ -4,11 +4,12 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f5="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title></title>
     </h:head>
-    <h:body>
+    <body>
         <ui:composition template="template/layout.xhtml">     
             <ui:param name="wrapperWidth" value="1055px"/>
             <ui:param name="search" value="true"/>
@@ -20,8 +21,15 @@
             </ui:define>
 
             <ui:define name="login">
-                You have successfully logged into your account!
+                <!-- Takes input for username and password, redirects to either a success page or register page
+                     depending on the outcome of the findAll() method -->
+                <h:form id="loginFormID">
+                    <h:inputText styleClass="inputs" value="#{userBean.user}" f5:type="email" f5:placeholder="E-mail"/>
+                    <h:inputSecret styleClass="inputs" value="#{userBean.pass}" f5:placeholder="Password:"/>
+                    <h:commandButton styleClass="lbutton" value="Log In" action="#{userBean.findALL()}"/>
+                </h:form>
             </ui:define>
+            <!-- Takes input for search term, searches inventory for that term using the searchInventory() method -->
             <ui:define name="search">
                 <h:form>
                     <h:inputText styleClass="inputs" value="#{functionBean.search}" f5:type="search" f5:placeholder="Search"/>
@@ -46,6 +54,8 @@
                 <br/>
                 <br/>
                 <br/>
+                <!-- Uses command buttons to trigger a tiered menu on click, using the model and menu
+                     items created in the Product Bean -->
                 <div style="width:200px;padding-bottom: 5px;">
                     <h:form>
                         <p:growl id="messages" showDetail="true"/>
@@ -72,21 +82,42 @@
                 </div>
                 <br/><br/>
             </ui:define>
-
-
-            <ui:define name="content">               
-                <div style="text-align: center;margin-top: 170px;margin-bottom: 170px;">
-                    <p>Do you want the fastest processors at the lowest prices? Look no further!</p>
-                </div>
+            <ui:define name="content">
+                <h2 style="text-align:center;">Shopping Cart</h2>
+                <hr/>
+                <h:form>
+                    <h:panelGrid columns="5">
+                        <h:dataTable value="#{functionBean.items}" var="i" style="text-align:center;" cellpadding="5px">
+                            <h:column><f:facet name="header">Purchase Qty</f:facet><h:outputText value="#{i.count}"/></h:column>
+                            <h:column><f:facet name="header">Product Type</f:facet><h:outputText value="#{i.description}"/></h:column>
+                            <h:column><f:facet name="header">Description</f:facet><h:outputText value="#{i.desc.substring(0, 50)}..."/></h:column>
+                            <h:column><f:facet name="header">Price</f:facet><h:outputText value="$#{i.price}"/></h:column>
+                            <h:column><f:facet name="header">Options</f:facet>
+                                <h:commandButton id="add" value="+" action="#{functionBean.add(i)}">
+                                </h:commandButton>|<h:commandButton value="-" action="#{functionBean.remove(i)}">
+                                </h:commandButton><br/>
+                                <h:commandButton value="Remove" action="#{functionBean.removeFromCart(i)}">
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGrid>
+                    <div style="text-align:center;">
+                        <strong>Total Item Count = </strong>
+                        <h:outputText value="#{functionBean.totalItems}"/><br/><br/>
+                    <strong>Total Price = </strong> $
+                    <h:outputText value="#{functionBean.totalPrice}"/><br/><br/>
+                    <h:commandButton value="Clear Cart" action="#{functionBean.clearCart()}">
+                    </h:commandButton><br/><br/>
+                    <p:commandButton value="Checkout" action="creditcard.xhtml" immediate="true"/>
+                    </div>
+                </h:form>
+                <hr/>
             </ui:define>
-
 
             <ui:define name='bottom'>
                 SLCC ASDV 2020. All Rights Reserved.
             </ui:define>
         </ui:composition>
         <br />
-    </h:body>
+    </body>
 </html>
-
-

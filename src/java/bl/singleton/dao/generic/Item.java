@@ -13,6 +13,7 @@ public class Item
     private int qty;
     private String desc;
     private double price;
+    private int count;
     private String fakeImage = "resources/images/iPhone11.png";
 
     public Item() {
@@ -20,6 +21,7 @@ public class Item
     
     public Item(String id) {
         this.id = id;
+        this.count = 1;
     }
 
     public Item(String category, String id, String description, int width, int height, int qty, String desc, double price, String fakeImage) {
@@ -44,6 +46,7 @@ public class Item
         this.qty = i.qty;
         this.price = i.price;
         this.fakeImage = i.fakeImage;
+        this.count = 1;
     }
     
     public Item(String category, String id, String description) {
@@ -134,6 +137,14 @@ public class Item
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     @Override

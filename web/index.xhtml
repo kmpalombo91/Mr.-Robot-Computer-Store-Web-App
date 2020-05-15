@@ -33,6 +33,7 @@
                 <h:form>
                     <h:inputText styleClass="inputs" value="#{functionBean.search}" f5:type="search" f5:placeholder="Search"/>
                     <h:commandButton styleClass="lbutton" value="Go" action="#{functionBean.searchInventory()}"/>
+                    <h:commandButton styleClass="lbutton" value="Show Cart" action="#{functionBean.showCart()}"/>
                 </h:form>
             </ui:define>
 
@@ -87,6 +88,7 @@
                          found in the Product Bean -->
                     <ui:param name="title" value="#{productsBean.product.description}" />
                     <ui:param name="price" value="#{productsBean.product.price}"/>
+                    <ui:param name="qty" value="#{productsBean.product.qty}"/>
                     <ui:param name="image" value="#{productsBean.product.fakeImage}" />
                     <ui:param name="width" value="#{productsBean.product.width}"/>
                     <ui:param name="height" value="#{productsBean.product.height}"/>
